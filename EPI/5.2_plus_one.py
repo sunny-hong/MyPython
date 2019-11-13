@@ -71,8 +71,12 @@ def plus_one_variance(string_s, string_t):
     return string_t
   elif len_t<1:
     return string_s
+
+  # separates string characters into an array. still string.
   s = list(string_s)
   t = list(string_t)
+
+  # matches the length of variables, s and t. 
   temp = [0]
   if len_s > len_t :
     temp = temp * (len_s - len_t)
@@ -80,9 +84,35 @@ def plus_one_variance(string_s, string_t):
   elif len_t > len_s:
     temp = temp * (len_t - len_s)
     s = temp + s
-
   
+  carry = 0
+  res = []
+  for i in reversed(range(1,len(s))):
+    temp = int(s[i]) + int(t[i]) + carry 
+    carry = 0
+    if temp > 1:
+      carry = int(temp/2)
+      temp = temp%2
+      res = [temp]+res
+    else:
+      res = [temp]+res
 
-  return
+  temp = int(s[0])+ int(t[0]) + carry
+  if temp>1:
+      temp = temp%2
+      res = [1]+[temp]+res
+  else:
+    res = [temp]+res
+  
+  temp = ""
+  for i in res:
+    temp+= str(i)
 
-plus_one_variance("111",'101')
+  return temp
+
+a = "111"
+b = "111"
+print(plus_one_variance(a,b))
+print(plus_one_variance("111011","101"))
+print(plus_one_variance("11111111",""))
+print(plus_one_variance("11111111","10"))
